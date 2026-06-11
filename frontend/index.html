@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECharts 可行性验证</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <style>
+        .chart-box { width: 100%; height: 350px; }
+        .target-chip { cursor: pointer; user-select: none; }
+        #event-panel { min-height: 80px; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <header class="bg-white border-b shadow-sm px-6 py-3">
+        <h1 class="text-xl font-bold text-slate-800">目标识别数据仪表盘</h1>
+    </header>
+
+    <div class="px-6 py-3 bg-white border-b flex flex-wrap gap-4 items-end">
+        <div>
+            <label class="block text-xs font-medium text-slate-500 mb-1">目标</label>
+            <div id="target-chips" class="flex flex-wrap gap-1"></div>
+        </div>
+        <div class="flex gap-2 items-end">
+            <div>
+                <label class="block text-xs font-medium text-slate-500 mb-1">起始时间</label>
+                <input id="time-start" type="text" class="border rounded px-2 py-1 text-sm w-24 font-mono" placeholder="00:00:00">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-slate-500 mb-1">结束时间</label>
+                <input id="time-end" type="text" class="border rounded px-2 py-1 text-sm w-24 font-mono" placeholder="01:00:00">
+            </div>
+        </div>
+        <div>
+            <label class="block text-xs font-medium text-slate-500 mb-1">聚合粒度</label>
+            <select id="time-bucket" class="border rounded px-2 py-1 text-sm">
+                <option value="1s" selected>1 秒</option>
+                <option value="30s">30 秒</option>
+                <option value="1min">1 分钟</option>
+                <option value="5min">5 分钟</option>
+                <option value="10min">10 分钟</option>
+            </select>
+        </div>
+        <button id="btn-refresh" onclick="refreshAll()" class="bg-blue-600 text-white px-4 py-1.5 rounded text-sm hover:bg-blue-700 transition">应用筛选</button>
+        <span id="loading-indicator" class="text-xs text-slate-400 hidden">加载中...</span>
+    </div>
+
+    <!-- ═══ 图表 2×2 ═══ -->
+    <div class="px-6 py-4 grid grid-cols-2 gap-4">
+        <div class="bg-white rounded-lg border shadow-sm p-3">
+            <h3 class="text-sm font-semibold text-slate-700 mb-1">目标的时间分布</h3>
+            <div id="chart-heatmap" class="chart-box"></div>
+        </div>
+        <div class="bg-white rounded-lg border shadow-sm p-3">
+            <h3 class="text-sm font-semibold text-slate-700 mb-1">目标的时间分布</h3>
+            <div id="chart-scatter" class="chart-box"></div>
+        </div>
+        <div class="bg-white rounded-lg border shadow-sm p-3">
+            <h3 class="text-sm font-semibold text-slate-700 mb-1">目标的多样性与频次关系</h3>
+            <div id="chart-density" class="chart-box"></div>
+        </div>
+        <div class="bg-white rounded-lg border shadow-sm p-3">
+            <h3 class="text-sm font-semibold text-slate-700 mb-1">目标在画面上的空间分布</h3>
+            <div id="chart-bbox" class="chart-box"></div>
+        </div>
+    </div>
+
+    <div class="px-6 pb-6">
+        <div id="event-panel" class="bg-white rounded-lg border shadow-sm p-3">
+            <h3 class="text-sm font-semibold text-slate-700 mb-1">📋 点击事件详情</h3>
+            <p id="event-content" class="text-sm text-slate-500">点击任意图表中的数据点查看详情</p>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

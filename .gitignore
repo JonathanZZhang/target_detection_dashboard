@@ -1,0 +1,30 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# OS / editor
+.DS_Store
+Thumbs.db
+~$*
+
+# Screenshots / temp outputs
+*.png
+.playwright-mcp/
+
+# Jupyter
+*.ipynb
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Streamlit state (keep config)
+.streamlit/secrets.toml
+
+# PowerShell
+*.ps1
